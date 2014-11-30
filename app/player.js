@@ -37,7 +37,6 @@ define(['video-js/video'], function() {
         }
 
         this.player.pause();
-        return this;
     };
 
     Player.prototype.src = function(source) {
