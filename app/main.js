@@ -1,4 +1,4 @@
-define(['app/player', 'app/form', 'jquery'], function(Player, Form) {
+define(['app/player', 'app/form', 'smarttv'], function(Player, Form) {
     "use strict";
 
     function Main() {
@@ -7,6 +7,8 @@ define(['app/player', 'app/form', 'jquery'], function(Player, Form) {
     };
 
     Main.prototype.init = function() {
+        (new (require('smarttv'))).widget.sendReadyEvent();
+
         $(document).on('player.close', $.proxy(function() {
             this.form.open();
         }, this));
