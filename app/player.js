@@ -3,8 +3,8 @@ define(['app/video', 'jquery', 'keymaster'], function(Video) {
 
     var video = new Video('video-player');
 
-    function Player(container) {
-        this.container = $(container);
+    function Player() {
+        this.container = $('#player');
 
         key('ctrl+x', 'player', $.proxy(this.close, this));
     };
