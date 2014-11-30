@@ -40,7 +40,7 @@ define(['smarttv'], function(SmartTv) {
 
         this.ime = this.smartTv.ime(this.input.attr('id'), $.proxy(function(obj) {
             this.ime.setKeyFunc(this.tvKey.KEY_RETURN, $.proxy(function(keyCode){
-                this.input.blur();
+                this.button.focus();
             }, this));
 
             this.ime.setKeyFunc(this.tvKey.KEY_EXIT, $.proxy(function(keyCode){
