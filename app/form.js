@@ -57,6 +57,7 @@ define(['smarttv'], function(SmartTv) {
 
     Form.prototype.close = function() {
         this.container.fadeOut($.proxy(function() {
+            this.button.blur();
             $(document).trigger('form.close', [this.input.val()]);
         }, this));
     };
