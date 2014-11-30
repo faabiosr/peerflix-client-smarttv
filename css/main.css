@@ -4,7 +4,7 @@ body {
     background-color: #D5E3EC;
 }
 
-#client {
+#form {
     width: 620px;
     height: 110px;
     position: absolute;
@@ -15,7 +15,7 @@ body {
     display: block;
 }
 
-#client input[type=text] {
+#form input[type=text] {
     background-color: #FFF;
 }
 
