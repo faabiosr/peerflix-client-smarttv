@@ -1,57 +1,22 @@
-define(['app/player', 'jquery'], function(Player) {
+define(['app/player', 'app/form', 'jquery'], function(Player, Form) {
     "use strict";
 
     function Main() {
-        this.formContent     = $('#client');
-        this.inputField      = this.formContent.find('input[type=text]');
-        this.sendButton      = this.formContent.find('.button');
-        this.player = new Player('#player');
+        this.player = new Player();
+        this.form   = new Form();
     };
 
     Main.prototype.init = function() {
-        this.sendButton.on('click', $.proxy(this.open, this));
-        this.inputField.on('keyup', $.proxy(this.validate, this));
-
         $(document).on('player.close', $.proxy(function() {
-            this.formContent.fadeIn();
+            this.form.open();
         }, this));
-    };
 
-    Main.prototype.open = function(){
-        if (!this.validate()) {
-            return;
-        }
-
-        this.formContent.fadeOut($.proxy(function() {
+        $(document).on('form.close', $.proxy(function(e, url) {
             this.player
-                .setSource(this.inputField.val())
+                .setSource(url)
                 .open();
         }, this));
-    };
-
-    Main.prototype.validate = function() {
-        if (!this.inputField.val()) {
-            this.formContent
-                .find('.input')
-                .addClass('error');
-
-            this.sendButton
-                .removeClass('teal')
-                .addClass('red');
-
-            return false;
-        }
-
-        this.formContent
-            .find('.input')
-            .removeClass('error');
-
-        this.sendButton
-            .removeClass('red')
-            .addClass('teal');
-
-        return true;
-    };
+    }
 
     return Main;
 });
