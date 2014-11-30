@@ -1,0 +1,35 @@
+body {
+    width: 100%;
+    height: 100%;
+    background-color: #D5E3EC;
+}
+
+#client {
+    width: 620px;
+    height: 110px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -70px;
+    margin-left: -310px;
+    display: block;
+}
+
+#client input[type=text] {
+    background-color: #FFF;
+}
+
+#player {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: none;
+}
+
+#player video {
+   width: 100%;
+   height: 100%;
+}
+
