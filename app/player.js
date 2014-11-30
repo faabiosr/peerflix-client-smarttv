@@ -1,46 +1,35 @@
-
-define(['video-js/video'], function() {
+define(['app/video', 'jquery', 'keymaster'], function(Video) {
     "use strict";
 
-    function Player(id){
-        this.options = {
-            children: {
-                controlBar: {
-                    children: {
-                        fullscreenToggle: false,
-                        muteToggle: false,
-                        volumeControl: false
-                    }
-                }
-            }
-        };
+    var video = new Video('video-player');
 
-        this.player  = videojs(id, this.options);
+    function Player(container) {
+        this.container = $(container);
+
+        key('ctrl+x', 'player', $.proxy(this.close, this));
     };
 
-    Player.prototype.play = function() {
-        this.player.play();
+    Player.prototype.open = function() {
+        key.setScope('player');
+
+        this.container.fadeIn($.proxy(function(){
+            $(document).trigger('player.open');
+            video.play();
+        }, this));
     };
 
-    Player.prototype.stop = function() {
-        this.player
-            .pause()
-            .currentTime(0);
+    Player.prototype.close = function() {
+        key.deleteScope('player');
 
-        return this;
+        video.pause();
+
+        this.container.fadeOut(function() {
+            $(document).trigger('player.close');
+        });
     };
 
-    Player.prototype.pause = function() {
-        if (this.player.paused()) {
-            this.player.play();
-            return;
-        }
-
-        this.player.pause();
-    };
-
-    Player.prototype.src = function(source) {
-        this.player.src(source);
+    Player.prototype.setSource = function(source) {
+        video.src(source);
         return this;
     };
 

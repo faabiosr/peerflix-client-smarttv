@@ -1,18 +1,18 @@
-define(['app/player-container', 'jquery'], function(PlayerContainer) {
+define(['app/player', 'jquery'], function(Player) {
     "use strict";
 
     function Main() {
         this.formContent     = $('#client');
         this.inputField      = this.formContent.find('input[type=text]');
         this.sendButton      = this.formContent.find('.button');
-        this.playerContainer = new PlayerContainer('#player');
+        this.player = new Player('#player');
     };
 
     Main.prototype.init = function() {
         this.sendButton.on('click', $.proxy(this.open, this));
         this.inputField.on('keyup', $.proxy(this.validate, this));
 
-        $(document).on('playercontainer.close', $.proxy(function() {
+        $(document).on('player.close', $.proxy(function() {
             this.formContent.fadeIn();
         }, this));
     };
@@ -23,8 +23,9 @@ define(['app/player-container', 'jquery'], function(PlayerContainer) {
         }
 
         this.formContent.fadeOut($.proxy(function() {
-            this.playerContainer.player.src(this.inputField.val());
-            this.playerContainer.open();
+            this.player
+                .setSource(this.inputField.val())
+                .open();
         }, this));
     };
 
