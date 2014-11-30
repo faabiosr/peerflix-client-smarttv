@@ -1,13 +1,22 @@
-define(['jquery'], function() {
+define(['smarttv'], function(SmartTv) {
     "use strict";
 
     function Form() {
         this.container = $("#form");
         this.input     = this.container.find('input[type=text]');
         this.button    = this.container.find('.button');
+        this.smartTv   = new SmartTv();
 
         this.input.on('keyup', $.proxy(this.validate, this));
         this.button.on('click', $.proxy(this.submit, this));
+
+        this.input.focus();
+
+        this.input.on('keydown', $.proxy(function(e) {
+            if (e.keyCode == this.smartTv.tvKey.KEY_ENTER) {
+                this.button.trigger('click');
+            }
+        }, this));
     };
 
     Form.prototype.open = function() {
