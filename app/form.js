@@ -6,16 +6,46 @@ define(['smarttv'], function(SmartTv) {
         this.input     = this.container.find('input[type=text]');
         this.button    = this.container.find('.button');
         this.smartTv   = new SmartTv();
+        this.tvKey     = this.smartTv.tvKey;
 
         this.input.on('keyup', $.proxy(this.validate, this));
         this.button.on('click', $.proxy(this.submit, this));
 
-        this.input.focus();
+        this.button.on('focus', function(){
+            $(this).removeClass('teal red')
+                   .addClass('purple');
+        });
 
-        this.input.on('keydown', $.proxy(function(e) {
-            if (e.keyCode == this.smartTv.tvKey.KEY_ENTER) {
-                this.button.trigger('click');
+        this.button.on('blur', function() {
+            $(this).removeClass('purple red')
+                   .addClass('teal');
+        });
+
+        this.button.on('keydown', $.proxy(function(e){
+            if (e.keyCode == this.tvKey.KEY_ENTER) {
+                $(this).trigger('click');
             }
+        }, this));
+
+        $(document).on('keydown', $.proxy(function(e) {
+            if (e.keyCode == this.tvKey.KEY_ENTER && !this.button.is(':focus')) {
+                e.preventDefault();
+                this.input.focus();
+            }
+
+            if ((e.keyCode == this.tvKey.KEY_LEFT || e.keyCode == this.tvKey.KEY_RIGHT) && this.button.is(':focus')) {
+                this.input.focus();
+            }
+        }, this));
+
+        this.ime = this.smartTv.ime(this.input.attr('id'), $.proxy(function(obj) {
+            this.ime.setKeyFunc(this.tvKey.KEY_RETURN, $.proxy(function(keyCode){
+                this.input.blur();
+            }, this));
+
+            this.ime.setKeyFunc(this.tvKey.KEY_EXIT, $.proxy(function(keyCode){
+                this.button.focus();
+            }, this));
         }, this));
     };
 
