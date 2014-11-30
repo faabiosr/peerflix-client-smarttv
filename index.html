@@ -7,15 +7,16 @@
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
         <link href="lib/video-js/video-js.min.css" rel="stylesheet" type="text/css">
         <link href="css/main.css" rel="stylesheet" type="text/css">
-        <script language="javascript" type="text/javascript" src="$MANAGER_WIDGET/Common/API/Widget.js"></script>
-        <script language="javascript" type="text/javascript" src="$MANAGER_WIDGET/Common/API/TVKeyValue.js"></script>
+        <script type="text/javascript" src="$MANAGER_WIDGET/Common/API/Widget.js"></script>
+        <script type="text/javascript" src="$MANAGER_WIDGET/Common/API/TVKeyValue.js"></script>
 	</head>
 	<body>
+        <script type="text/javascript" src="$MANAGER_WIDGET/Common/IME/ime2.js"></script>
         <div id="form">
             <h1 class="ui header">Peerflix Client</h1>
             <div class="ui fluid action left input massive">
-                <input type="text" placeholder="Server URL">
-                <div class="ui teal button">Go <i class="arrow right icon"></i></div>
+                <input id="url" type="text" placeholder="Server URL">
+                <a class="ui teal button" href="javascript:void(0);">Go <i class="arrow right icon"></i></a>
             </div>
         </div>
         <div id="player">
